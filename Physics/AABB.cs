@@ -3,10 +3,8 @@ namespace Y7Engine
 {
     public class AABB
     {
-        public Vector3 center;
+        public Vector3 Center;
 
-        public Matrix3x3 axes;
-
-        public float half_lengths;
+        public Vector3 Extents;
     }
 }
