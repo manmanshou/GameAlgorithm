@@ -7,7 +7,7 @@ namespace Y7Engine
     {
         public int LeftNodeIndex;
         public int RightNodeIndex;
-        public AABB BoundingBox;
+        public AABB? BoundingBox;
     }
 
     public class AABBTree

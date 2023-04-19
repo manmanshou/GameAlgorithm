@@ -442,7 +442,7 @@ namespace Y7Engine
 
         public bool Equals(Matrix3x3 other) => (double)this.A1 == (double)other.A1 && (double)this.A2 == (double)other.A2 && ((double)this.A3 == (double)other.A3 && (double)this.B1 == (double)other.B1) && ((double)this.B2 == (double)other.B2 && (double)this.B3 == (double)other.B3) && ((double)this.C1 == (double)other.C1 && (double)this.C2 == (double)other.C2 && (double)this.C3 == (double)other.C3);
 
-        public override bool Equals(object obj) => obj is Matrix3x3 other && this.Equals(other);
+        public override bool Equals(object? obj) => obj is Matrix3x3 other && this.Equals(other);
 
         public override int GetHashCode() => this.A1.GetHashCode() + this.A2.GetHashCode() + this.A3.GetHashCode() + this.B1.GetHashCode() + this.B2.GetHashCode() + this.B3.GetHashCode() + this.C1.GetHashCode() + this.C2.GetHashCode() + this.C3.GetHashCode();
 

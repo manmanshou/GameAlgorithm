@@ -784,7 +784,7 @@ namespace Y7Engine
             return false;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             bool flag = false;
             if (obj is Matrix4x4)
