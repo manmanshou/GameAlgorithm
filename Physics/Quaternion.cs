@@ -26,24 +26,24 @@ namespace Y7Engine
             float num1 = angle * 0.5f;
             float num2 = (float) Math.Sin((double) num1);
             float num3 = (float) Math.Cos((double) num1);
-            this.x = rkAxis.x * num2;
-            this.y = rkAxis.y * num2;
-            this.z = rkAxis.z * num2;
+            this.x = rkAxis.X * num2;
+            this.y = rkAxis.Y * num2;
+            this.z = rkAxis.Z * num2;
             this.w = num3;
         }
 
         public Quaternion(Vector3 xaxis, Vector3 yaxis, Vector3 zaxis)
         {
-            Matrix4x4 identityM = Matrix4x4.identity;
-            identityM[0, 0] = xaxis.x;
-            identityM[1, 0] = xaxis.y;
-            identityM[2, 0] = xaxis.z;
-            identityM[0, 1] = yaxis.x;
-            identityM[1, 1] = yaxis.y;
-            identityM[2, 1] = yaxis.z;
-            identityM[0, 2] = zaxis.x;
-            identityM[1, 2] = zaxis.y;
-            identityM[2, 2] = zaxis.z;
+            Matrix4x4 identityM = Matrix4x4.Identity;
+            identityM[0, 0] = xaxis.X;
+            identityM[1, 0] = xaxis.Y;
+            identityM[2, 0] = xaxis.Z;
+            identityM[0, 1] = yaxis.X;
+            identityM[1, 1] = yaxis.Y;
+            identityM[2, 1] = yaxis.Z;
+            identityM[0, 2] = zaxis.X;
+            identityM[1, 2] = zaxis.Y;
+            identityM[2, 2] = zaxis.Z;
             Quaternion.CreateFromRotationMatrix(ref identityM, out this);
         }
 
@@ -201,9 +201,9 @@ namespace Y7Engine
             float num2 = (float)Math.Sin(num1);
             float num3 = (float)Math.Cos(num1);
             Quaternion quaternion;
-            quaternion.x = axis.x * num2;
-            quaternion.y = axis.y * num2;
-            quaternion.z = axis.z * num2;
+            quaternion.x = axis.X * num2;
+            quaternion.y = axis.Y * num2;
+            quaternion.z = axis.Z * num2;
             quaternion.w = num3;
             return quaternion;
         }
@@ -213,9 +213,9 @@ namespace Y7Engine
             float num1 = angle * 0.5f;
             float num2 = (float) Math.Sin(num1);
             float num3 = (float) Math.Cos(num1);
-            result.x = axis.x * num2;
-            result.y = axis.y * num2;
-            result.z = axis.z * num2;
+            result.x = axis.X * num2;
+            result.y = axis.Y * num2;
+            result.z = axis.Z * num2;
             result.w = num3;
         }
 
@@ -243,14 +243,14 @@ namespace Y7Engine
             //角度转弧度
             eulerAngle = eulerAngle * Mathf.Deg2Rad;
 
-            float cX = (float)Math.Cos(eulerAngle.x / 2.0f);
-            float sX = (float)Math.Sin(eulerAngle.x / 2.0f);
+            float cX = (float)Math.Cos(eulerAngle.X / 2.0f);
+            float sX = (float)Math.Sin(eulerAngle.X / 2.0f);
 
-            float cY = (float)Math.Cos(eulerAngle.y / 2.0f);
-            float sY = (float)Math.Sin(eulerAngle.y / 2.0f);
+            float cY = (float)Math.Cos(eulerAngle.Y / 2.0f);
+            float sY = (float)Math.Sin(eulerAngle.Y / 2.0f);
 
-            float cZ = (float)Math.Cos(eulerAngle.z / 2.0f);
-            float sZ = (float)Math.Sin(eulerAngle.z / 2.0f);
+            float cZ = (float)Math.Cos(eulerAngle.Z / 2.0f);
+            float sZ = (float)Math.Sin(eulerAngle.Z / 2.0f);
 
             Quaternion qX = new Quaternion(sX, 0, 0, cX);
             Quaternion qY = new Quaternion(0, sY, 0, cY);
@@ -288,19 +288,19 @@ namespace Y7Engine
             float wz = q.w * z;
 
             // Calculate 3x3 matrix from orthonormal basis
-            Matrix3x3 m = Matrix3x3.identity;
+            Matrix3x3 m = Matrix3x3.Identity;
 
-            m.Data[0] = 1.0f - (yy + zz);
-            m.Data[1] = xy + wz;
-            m.Data[2] = xz - wy;
+            m.A1 = 1.0f - (yy + zz);
+            m.A2 = xy + wz;
+            m.A3 = xz - wy;
 
-            m.Data[3] = xy - wz;
-            m.Data[4] = 1.0f - (xx + zz);
-            m.Data[5] = yz + wx;
+            m.B1 = xy - wz;
+            m.B2 = 1.0f - (xx + zz);
+            m.B3 = yz + wx;
 
-            m.Data[6] = xz + wy;
-            m.Data[7] = yz - wx;
-            m.Data[8] = 1.0f - (xx + yy);
+            m.C1 = xz + wy;
+            m.C2 = yz - wx;
+            m.C3 = 1.0f - (xx + yy);
 
             return m;
         }
@@ -324,20 +324,20 @@ namespace Y7Engine
             const float negativeFlip = -0.0001F;
             const float positiveFlip = ((float)Math.PI * 2.0F) - 0.0001F;
 
-            if (euler.x < negativeFlip)
-                euler.x += 2.0f * (float)Math.PI;
-            else if (euler.x > positiveFlip)
-                euler.x -= 2.0f * (float)Math.PI;
+            if (euler.X < negativeFlip)
+                euler.X += 2.0f * (float)Math.PI;
+            else if (euler.X > positiveFlip)
+                euler.X -= 2.0f * (float)Math.PI;
 
-            if (euler.y < negativeFlip)
-                euler.y += 2.0f * (float)Math.PI;
-            else if (euler.y > positiveFlip)
-                euler.y -= 2.0f * (float)Math.PI;
+            if (euler.Y < negativeFlip)
+                euler.Y += 2.0f * (float)Math.PI;
+            else if (euler.Y > positiveFlip)
+                euler.Y -= 2.0f * (float)Math.PI;
 
-            if (euler.z < negativeFlip)
-                euler.z += 2.0f * (float)Math.PI;
-            else if (euler.z > positiveFlip)
-                euler.z -= 2.0f * (float)Math.PI;
+            if (euler.Z < negativeFlip)
+                euler.Z += 2.0f * (float)Math.PI;
+            else if (euler.Z > positiveFlip)
+                euler.Z -= 2.0f * (float)Math.PI;
 
             return euler;
         }
@@ -347,31 +347,31 @@ namespace Y7Engine
         {
             // from http://www.geometrictools.com/Documentation/EulerAngles.pdf
             // YXZ order
-            Vector3 v = Vector3.zero;
-            if (matrix.Data[7] < 0.9999F) // some fudge for imprecision
+            Vector3 v = Vector3.Zero;
+            if (matrix.C2 < 0.9999F) // some fudge for imprecision
             {
-                if (matrix.Data[7] > -0.9999F) // some fudge for imprecision
+                if (matrix.C2 > -0.9999F) // some fudge for imprecision
                 {
-                    v.x = Mathf.Asin(-matrix.Data[7]);
-                    v.y = Mathf.Atan2(matrix.Data[6], matrix.Data[8]);
-                    v.z = Mathf.Atan2(matrix.Data[1], matrix.Data[4]);
+                    v.X = Mathf.Asin(-matrix.C2);
+                    v.Y = Mathf.Atan2(matrix.C1, matrix.C3);
+                    v.Z = Mathf.Atan2(matrix.A2, matrix.B2);
                     MakePositive(v);
                 }
                 else
                 {
                     // WARNING.  Not unique.  YA - ZA = atan2(r01,r00)
-                    v.x = (float)Math.PI * 0.5F;
-                    v.y = Mathf.Atan2(matrix.Data[3], matrix.Data[0]);
-                    v.z = 0.0F;
+                    v.X = (float)Math.PI * 0.5F;
+                    v.Y = Mathf.Atan2(matrix.B1, matrix.A1);
+                    v.Z = 0.0F;
                     MakePositive(v);
                 }
             }
             else
             {
                 // WARNING.  Not unique.  YA + ZA = atan2(-r01,r00)
-                v.x = -(float)Math.PI * 0.5F;
-                v.y = Mathf.Atan2(-matrix.Data[3], matrix.Data[0]);
-                v.z = 0.0F;
+                v.X = -(float)Math.PI * 0.5F;
+                v.Y = Mathf.Atan2(-matrix.B1, matrix.A1);
+                v.Z = 0.0F;
                 MakePositive(v);
             }
 
@@ -385,7 +385,7 @@ namespace Y7Engine
             // Algorithm in Ken Shoemake's article in 1987 SIGGRAPH course notes
             // article "Quaternionf Calculus and Fast Animation".
 
-            float fTrace = kRot.Get(0, 0) + kRot.Get(1, 1) + kRot.Get(2, 2);
+            float fTrace = kRot[0, 0] + kRot[1, 1] + kRot[2, 2];
             float fRoot;
 
             if (fTrace > 0.0f)
@@ -394,30 +394,30 @@ namespace Y7Engine
                 fRoot = Mathf.Sqrt(fTrace + 1.0f);  // 2w
                 q.w = 0.5f * fRoot;
                 fRoot = 0.5f / fRoot;  // 1/(4w)
-                q.x = (kRot.Get(2, 1) - kRot.Get(1, 2)) * fRoot;
-                q.y = (kRot.Get(0, 2) - kRot.Get(2, 0)) * fRoot;
-                q.z = (kRot.Get(1, 0) - kRot.Get(0, 1)) * fRoot;
+                q.x = (kRot[2, 1] - kRot[1, 2]) * fRoot;
+                q.y = (kRot[0, 2] - kRot[2, 0]) * fRoot;
+                q.z = (kRot[1, 0] - kRot[0, 1]) * fRoot;
             }
             else
             {
                 // |w| <= 1/2
                 int[] s_iNext = new int[3] { 1, 2, 0 };
                 int i = 0;
-                if (kRot.Get(1, 1) > kRot.Get(0, 0))
+                if (kRot[1, 1] > kRot[0, 0])
                     i = 1;
-                if (kRot.Get(2, 2) > kRot.Get(i, i))
+                if (kRot[2, 2] > kRot[i, i])
                     i = 2;
                 int j = s_iNext[i];
                 int k = s_iNext[j];
 
-                fRoot = Mathf.Sqrt(kRot.Get(i, i) - kRot.Get(j, j) - kRot.Get(k, k) + 1.0f);
+                fRoot = Mathf.Sqrt(kRot[i, i] - kRot[j, j] - kRot[k, k] + 1.0f);
                 float[] apkQuat = new float[3] { q.x, q.y, q.z };
 
                 apkQuat[i] = 0.5f * fRoot;
                 fRoot = 0.5f / fRoot;
-                q.w = (kRot.Get(k, j) - kRot.Get(j, k)) * fRoot;
-                apkQuat[j] = (kRot.Get(j, i) + kRot.Get(i, j)) * fRoot;
-                apkQuat[k] = (kRot.Get(k, i) + kRot.Get(i, k)) * fRoot;
+                q.w = (kRot[k, j] - kRot[j, k]) * fRoot;
+                apkQuat[j] = (kRot[j, i] + kRot[i, j]) * fRoot;
+                apkQuat[k] = (kRot[k, i] + kRot[i, k]) * fRoot;
 
                 q.x = apkQuat[0];
                 q.y = apkQuat[1];
@@ -455,7 +455,7 @@ namespace Y7Engine
             float s = (float)Math.Sqrt((1 + cosTheta) * 2);
             float invs = 1 / s;
             
-            quaternion = new Quaternion(rotationAxis.x * invs, rotationAxis.y * invs, rotationAxis.z * invs, s * 0.5f);
+            quaternion = new Quaternion(rotationAxis.X * invs, rotationAxis.Y * invs, rotationAxis.Z * invs, s * 0.5f);
             quaternion.Normalize();
             return quaternion;
         }
@@ -463,31 +463,7 @@ namespace Y7Engine
         public static bool LookRotationToQuaternion(Vector3 viewVec, Vector3 upVec, out Quaternion quat)
         {
             // Generates a Right handed Quat from a look rotation. Returns if conversion was successful.
-            Matrix3x3 m;
-            if (!Matrix3x3.LookRotationToMatrix(viewVec, upVec, out m))
-            {
-                if (viewVec.y > Mathf.Epsilon)
-                {
-                    quat.x = 0.7f;
-                    quat.y = 0;
-                    quat.z = 0;
-                    quat.w = 0.7f;
-                    return true;
-                }
-                else if (viewVec.y < -Mathf.Epsilon)
-                {
-                    quat.x = -0.7f;
-                    quat.y = 0;
-                    quat.z = 0;
-                    quat.w = 0.7f;
-                    return true;
-                }
-                quat.x = 0f;
-                quat.y = 0;
-                quat.z = 0;
-                quat.w = 1f;
-                return true;
-            }
+            Matrix3x3 m = Matrix3x3.LookRotationToMatrix(viewVec, upVec);
             quat = MatrixToQuaternion(m);
             return true;
         }
@@ -505,7 +481,7 @@ namespace Y7Engine
         public static Quaternion LookRotation(Vector3 viewVec)
         {
             Quaternion q;
-            bool ret = LookRotationToQuaternion(viewVec, Vector3.up, out q);
+            bool ret = LookRotationToQuaternion(viewVec, Vector3.Up, out q);
             if (!ret)
             {
 				throw new Exception("Look fail!");
@@ -841,12 +817,12 @@ namespace Y7Engine
             float num11 = rotation.w * num2;
             float num12 = rotation.w * num3;
             Vector3 vector3_1;
-            vector3_1.x = (float) ((1.0 - ((double) num5 + (double) num6)) * (double) vector3.x +
-                ((double) num7 - (double) num12) * (double) vector3.y + ((double) num8 + (double) num11) * (double) vector3.z);
-            vector3_1.y = (float) (((double) num7 + (double) num12) * (double) vector3.x +
-                (1.0 - ((double) num4 + (double) num6)) * (double) vector3.y + ((double) num9 - (double) num10) * (double) vector3.z);
-            vector3_1.z = (float) (((double) num8 - (double) num11) * (double) vector3.x + ((double) num9 + (double) num10) * (double) vector3.y +
-                (1.0 - ((double) num4 + (double) num5)) * (double) vector3.z);
+            vector3_1.X = (float) ((1.0 - ((double) num5 + (double) num6)) * (double) vector3.X +
+                ((double) num7 - (double) num12) * (double) vector3.Y + ((double) num8 + (double) num11) * (double) vector3.Z);
+            vector3_1.Y = (float) (((double) num7 + (double) num12) * (double) vector3.X +
+                (1.0 - ((double) num4 + (double) num6)) * (double) vector3.Y + ((double) num9 - (double) num10) * (double) vector3.Z);
+            vector3_1.Z = (float) (((double) num8 - (double) num11) * (double) vector3.X + ((double) num9 + (double) num10) * (double) vector3.Y +
+                (1.0 - ((double) num4 + (double) num5)) * (double) vector3.Z);
             return vector3_1;
         }
 
@@ -864,12 +840,12 @@ namespace Y7Engine
             float num10 = rotation.w * num1;
             float num11 = rotation.w * num2;
             float num12 = rotation.w * num3;
-            result.x = (float) ((1.0 - ((double) num5 + (double) num6)) * (double) vector3.x + ((double) num7 - (double) num12) * (double) vector3.y +
-                ((double) num8 + (double) num11) * (double) vector3.z);
-            result.y = (float) (((double) num7 + (double) num12) * (double) vector3.x + (1.0 - ((double) num4 + (double) num6)) * (double) vector3.y +
-                ((double) num9 - (double) num10) * (double) vector3.z);
-            result.z = (float) (((double) num8 - (double) num11) * (double) vector3.x + ((double) num9 + (double) num10) * (double) vector3.y +
-                (1.0 - ((double) num4 + (double) num5)) * (double) vector3.z);
+            result.X = (float) ((1.0 - ((double) num5 + (double) num6)) * (double) vector3.X + ((double) num7 - (double) num12) * (double) vector3.Y +
+                ((double) num8 + (double) num11) * (double) vector3.Z);
+            result.Y = (float) (((double) num7 + (double) num12) * (double) vector3.X + (1.0 - ((double) num4 + (double) num6)) * (double) vector3.Y +
+                ((double) num9 - (double) num10) * (double) vector3.Z);
+            result.Z = (float) (((double) num8 - (double) num11) * (double) vector3.X + ((double) num9 + (double) num10) * (double) vector3.Y +
+                (1.0 - ((double) num4 + (double) num5)) * (double) vector3.Z);
         }
 
         public static Quaternion Multiply(Quaternion quaternion1, Quaternion quaternion2)
@@ -993,9 +969,9 @@ namespace Y7Engine
             //vector3.y = (float) (((double) num7 + (double) num12) * (double) point.x + (1.0 - ((double) num4 + (double) num6)) * (double) point.y + ((double) num9 - (double) num10) * (double) point.z);
             //vector3.z = (float) (((double) num8 - (double) num11) * (double) point.x + ((double) num9 + (double) num10) * (double) point.y + (1.0 - ((double) num4 + (double) num5)) * (double) point.z);
 
-            vector3.x = (float)((1.0 - (num5 + num6)) * point.x + (num7 - num12) * point.y + (num8 + num11) * point.z);
-            vector3.y = (float)((num7 + num12) * point.x + (1.0 - (num4 + num6)) * point.y + (num9 - num10) * point.z);
-            vector3.z = (float)((num8 - num11) * point.x + (num9 + num10) * point.y + (1.0 - (num4 + num5)) * point.z);
+            vector3.X = (float)((1.0 - (num5 + num6)) * point.X + (num7 - num12) * point.Y + (num8 + num11) * point.Z);
+            vector3.Y = (float)((num7 + num12) * point.X + (1.0 - (num4 + num6)) * point.Y + (num9 - num10) * point.Z);
+            vector3.Z = (float)((num8 - num11) * point.X + (num9 + num10) * point.Y + (1.0 - (num4 + num5)) * point.Z);
             return vector3;
         }
 

@@ -532,38 +532,38 @@ namespace Y7Engine
 
         internal static bool LineIntersection(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, ref Vector2 result)
         {
-            float num1 = p2.x - p1.x;
-            float num2 = p2.y - p1.y;
-            float num3 = p4.x - p3.x;
-            float num4 = p4.y - p3.y;
+            float num1 = p2.X - p1.X;
+            float num2 = p2.Y - p1.Y;
+            float num3 = p4.X - p3.X;
+            float num4 = p4.Y - p3.Y;
             float num5 = (float) ((double) num1 * (double) num4 - (double) num2 * (double) num3);
             if ((double) num5 == 0.0)
                 return false;
-            float num6 = p3.x - p1.x;
-            float num7 = p3.y - p1.y;
+            float num6 = p3.X - p1.X;
+            float num7 = p3.Y - p1.Y;
             float num8 = (float) ((double) num6 * (double) num4 - (double) num7 * (double) num3) / num5;
-            result = new Vector2(p1.x + num8 * num1, p1.y + num8 * num2);
+            result = new Vector2(p1.X + num8 * num1, p1.Y + num8 * num2);
             return true;
         }
 
         internal static bool LineSegmentIntersection(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, ref Vector2 result)
         {
-            float num1 = p2.x - p1.x;
-            float num2 = p2.y - p1.y;
-            float num3 = p4.x - p3.x;
-            float num4 = p4.y - p3.y;
+            float num1 = p2.X - p1.X;
+            float num2 = p2.Y - p1.Y;
+            float num3 = p4.X - p3.X;
+            float num4 = p4.Y - p3.Y;
             float num5 = (float) ((double) num1 * (double) num4 - (double) num2 * (double) num3);
             if ((double) num5 == 0.0)
                 return false;
-            float num6 = p3.x - p1.x;
-            float num7 = p3.y - p1.y;
+            float num6 = p3.X - p1.X;
+            float num7 = p3.Y - p1.Y;
             float num8 = (float) ((double) num6 * (double) num4 - (double) num7 * (double) num3) / num5;
             if ((double) num8 < 0.0 || (double) num8 > 1.0)
                 return false;
             float num9 = (float) ((double) num6 * (double) num2 - (double) num7 * (double) num1) / num5;
             if ((double) num9 < 0.0 || (double) num9 > 1.0)
                 return false;
-            result = new Vector2(p1.x + num8 * num1, p1.y + num8 * num2);
+            result = new Vector2(p1.X + num8 * num1, p1.Y + num8 * num2);
             return true;
         }
 
@@ -657,11 +657,11 @@ namespace Y7Engine
         {
             //空间直线一般式方程 Ax + By + Cz + D = 0;
             //假定 A = 1 ，推演B C D用A来表示，约去A，可得方程
-            float BNumerator = (surfacePoint1.x - surfacePoint2.x) * (surfacePoint2.z - surfacePoint3.z) - (surfacePoint2.x - surfacePoint3.x) * (surfacePoint1.z - surfacePoint2.z);
-            float BDenominator = (surfacePoint2.y - surfacePoint3.y) * (surfacePoint1.z - surfacePoint2.z) - (surfacePoint1.y - surfacePoint2.y) * (surfacePoint2.z - surfacePoint3.z);
+            float BNumerator = (surfacePoint1.X - surfacePoint2.X) * (surfacePoint2.Z - surfacePoint3.Z) - (surfacePoint2.X - surfacePoint3.X) * (surfacePoint1.Z - surfacePoint2.Z);
+            float BDenominator = (surfacePoint2.Y - surfacePoint3.Y) * (surfacePoint1.Z - surfacePoint2.Z) - (surfacePoint1.Y - surfacePoint2.Y) * (surfacePoint2.Z - surfacePoint3.Z);
             float B = BNumerator / BDenominator;
-            float C = (B * (surfacePoint1.y - surfacePoint2.y) + (surfacePoint1.x - surfacePoint2.x)) / (surfacePoint2.z - surfacePoint1.z);
-            float D = -surfacePoint1.x - B * surfacePoint1.y - C * surfacePoint1.z;
+            float C = (B * (surfacePoint1.Y - surfacePoint2.Y) + (surfacePoint1.X - surfacePoint2.X)) / (surfacePoint2.Z - surfacePoint1.Z);
+            float D = -surfacePoint1.X - B * surfacePoint1.Y - C * surfacePoint1.Z;
 
             return DisPoint2Surface(point, 1f, B, C, D);
         }
@@ -669,7 +669,7 @@ namespace Y7Engine
         public static float DisPoint2Surface(Vector3 point, float FactorA, float FactorB, float FactorC, float FactorD)
         {
             //点到平面的距离公式 d = |Ax + By + Cz + D|/sqrt(A2 + B2 + C2);
-            float numerator = Mathf.Abs(FactorA * point.x + FactorB * point.y + FactorC * point.z + FactorD);
+            float numerator = Mathf.Abs(FactorA * point.X + FactorB * point.Y + FactorC * point.Z + FactorD);
             float denominator = Mathf.Sqrt(Mathf.Pow(FactorA, 2) + Mathf.Pow(FactorB, 2) + Mathf.Pow(FactorC, 2));
             float dis = numerator / denominator;
             return dis;
@@ -678,27 +678,27 @@ namespace Y7Engine
         //求点到直线的垂足
         public static Vector3 GetFootOfPerpendicular(Vector3 pt, Vector3 begin, Vector3 end)
         {
-            float dx = begin.x - end.x;
-            float dy = begin.y - end.y;
-            float dz = begin.z - end.z;
+            float dx = begin.X - end.X;
+            float dy = begin.Y - end.Y;
+            float dz = begin.Z - end.Z;
             if (Abs(dx) < Epsilon && Abs(dy) < Epsilon && Abs(dz) < Epsilon)
                 return begin;
 
-            float u = (pt.x - begin.x) * (begin.x - end.x) + (pt.y - begin.y) * (begin.y - end.y) + (pt.z - begin.z) * (begin.z - end.z);
+            float u = (pt.X - begin.X) * (begin.X - end.X) + (pt.Y - begin.Y) * (begin.Y - end.Y) + (pt.Z - begin.Z) * (begin.Z - end.Z);
             u = u / ((dx * dx) + (dy * dy) + (dz * dz));
             Vector3 retVal;
-            retVal.x = begin.x + u * dx;
-            retVal.y = begin.y + u * dy;
-            retVal.z = begin.z + u * dz;
+            retVal.X = begin.X + u * dx;
+            retVal.Y = begin.Y + u * dy;
+            retVal.Z = begin.Z + u * dz;
             return retVal;
         }
 
         public static float CalcAttackAngle(Vector3 attackerPos, Vector3 attackerFaceDir, Vector3 defenderPos)
         {
-            float dx = defenderPos.x - attackerPos.x;
-            float dz = defenderPos.z - attackerPos.z;
+            float dx = defenderPos.X - attackerPos.X;
+            float dz = defenderPos.Z - attackerPos.Z;
             float attack_dir_rad = Mathf.Atan2(dz, dx);//水平攻击方向
-            float face_dir_rad = Mathf.Atan2(attackerFaceDir.z, attackerFaceDir.x);
+            float face_dir_rad = Mathf.Atan2(attackerFaceDir.Z, attackerFaceDir.X);
             return attack_dir_rad - face_dir_rad;
         }
 
@@ -707,12 +707,12 @@ namespace Y7Engine
             if(angleY > 89.99f && angleY < 90.01f)
 			{
                 direction = direction.normalized;
-                direction.y = 1000f;
+                direction.Y = 1000f;
                 return;
 			}
             float verAngle = Mathf.Deg2Rad * angleY;
-            float xz = (float)Math.Sqrt(direction.x * direction.x + direction.z * direction.z);
-            direction.y = xz * (float)Math.Tan(verAngle);
+            float xz = (float)Math.Sqrt(direction.X * direction.X + direction.Z * direction.Z);
+            direction.Y = xz * (float)Math.Tan(verAngle);
         }
 
         public unsafe static int RawFloatToInt(float value)

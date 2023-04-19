@@ -1,12 +1,11 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace Y7Engine
 {
     [Serializable]
     public struct Matrix4x4: IEquatable<Matrix4x4>
     {
-        public static readonly Matrix4x4 identity = new Matrix4x4(1f, 0.0f, 0.0f, 0.0f, 0.0f, 1f, 0.0f, 0.0f, 0.0f, 0.0f, 1f, 0.0f, 0.0f, 0.0f, 0.0f, 1f);
+        public static readonly Matrix4x4 Identity = new Matrix4x4(1f, 0.0f, 0.0f, 0.0f, 0.0f, 1f, 0.0f, 0.0f, 0.0f, 0.0f, 1f, 0.0f, 0.0f, 0.0f, 0.0f, 1f);
         public float m00;
         public float m01;
         public float m02;
@@ -24,7 +23,7 @@ namespace Y7Engine
         public float m32;
         public float m33;
         
-        public bool isIdentity
+        public bool IsIdentity
         {
             get
             {
@@ -33,111 +32,111 @@ namespace Y7Engine
             }
         }
 
-        public Vector3 up
+        public Vector3 Up
         {
             get
             {
                 Vector3 vector3;
-                vector3.x = this.m01;
-                vector3.y = this.m11;
-                vector3.z = this.m21;
+                vector3.X = this.m01;
+                vector3.Y = this.m11;
+                vector3.Z = this.m21;
                 return vector3;
             }
             set
             {
-                this.m01 = value.x;
-                this.m11 = value.y;
-                this.m21 = value.z;
+                this.m01 = value.X;
+                this.m11 = value.Y;
+                this.m21 = value.Z;
             }
         }
 
-        public Vector3 down
+        public Vector3 Down
         {
             get
             {
                 Vector3 vector3;
-                vector3.x = -this.m01;
-                vector3.y = -this.m11;
-                vector3.z = -this.m21;
+                vector3.X = -this.m01;
+                vector3.Y = -this.m11;
+                vector3.Z = -this.m21;
                 return vector3;
             }
             set
             {
-                this.m01 = -value.x;
-                this.m11 = -value.y;
-                this.m21 = -value.z;
+                this.m01 = -value.X;
+                this.m11 = -value.Y;
+                this.m21 = -value.Z;
             }
         }
 
-        public Vector3 right
+        public Vector3 Right
         {
             get
             {
                 Vector3 vector3;
-                vector3.x = this.m00;
-                vector3.y = this.m10;
-                vector3.z = this.m20;
+                vector3.X = this.m00;
+                vector3.Y = this.m10;
+                vector3.Z = this.m20;
                 return vector3;
             }
             set
             {
-                this.m00 = value.x;
-                this.m10 = value.y;
-                this.m20 = value.z;
+                this.m00 = value.X;
+                this.m10 = value.Y;
+                this.m20 = value.Z;
             }
         }
 
-        public Vector3 left
+        public Vector3 Left
         {
             get
             {
                 Vector3 vector3;
-                vector3.x = -this.m00;
-                vector3.y = -this.m10;
-                vector3.z = -this.m20;
+                vector3.X = -this.m00;
+                vector3.Y = -this.m10;
+                vector3.Z = -this.m20;
                 return vector3;
             }
             set
             {
-                this.m00 = -value.x;
-                this.m10 = -value.y;
-                this.m20 = -value.z;
+                this.m00 = -value.X;
+                this.m10 = -value.Y;
+                this.m20 = -value.Z;
             }
         }
 
-        public Vector3 forward
+        public Vector3 Forward
         {
             get
             {
                 Vector3 vector3;
-                vector3.x = -this.m02;
-                vector3.y = -this.m12;
-                vector3.z = -this.m22;
+                vector3.X = -this.m02;
+                vector3.Y = -this.m12;
+                vector3.Z = -this.m22;
                 return vector3;
             }
             set
             {
-                this.m02 = -value.x;
-                this.m12 = -value.y;
-                this.m22 = -value.z;
+                this.m02 = -value.X;
+                this.m12 = -value.Y;
+                this.m22 = -value.Z;
             }
         }
 
-        public Vector3 back
+        public Vector3 Back
         {
             get
             {
                 Vector3 vector3;
-                vector3.x = this.m02;
-                vector3.y = this.m12;
-                vector3.z = this.m22;
+                vector3.X = this.m02;
+                vector3.Y = this.m12;
+                vector3.Z = this.m22;
                 return vector3;
             }
             set
             {
-                this.m02 = value.x;
-                this.m12 = value.y;
-                this.m22 = value.z;
+                this.m02 = value.X;
+                this.m12 = value.Y;
+                this.m22 = value.Z;
             }
         }
 
@@ -172,37 +171,37 @@ namespace Y7Engine
         public Vector4 GetRow(int index)
         {
             Vector4 vector4;
-            vector4.x = this[index, 0];
-            vector4.y = this[index, 1];
-            vector4.z = this[index, 2];
-            vector4.w = this[index, 3];
+            vector4.X = this[index, 0];
+            vector4.Y = this[index, 1];
+            vector4.Z = this[index, 2];
+            vector4.W = this[index, 3];
             return vector4;
         }
 
         public void SetRow(int index, Vector4 value)
         {
-            this[index, 0] = value.x;
-            this[index, 1] = value.y;
-            this[index, 2] = value.z;
-            this[index, 3] = value.w;
+            this[index, 0] = value.X;
+            this[index, 1] = value.Y;
+            this[index, 2] = value.Z;
+            this[index, 3] = value.W;
         }
 
         public Vector4 GetColumn(int index)
         {
             Vector4 vector4;
-            vector4.x = this[0, index];
-            vector4.y = this[1, index];
-            vector4.z = this[2, index];
-            vector4.w = this[3, index];
+            vector4.X = this[0, index];
+            vector4.Y = this[1, index];
+            vector4.Z = this[2, index];
+            vector4.W = this[3, index];
             return vector4;
         }
 
         public void SetColumn(int index, Vector4 value)
         {
-            this[0, index] = value.x;
-            this[1, index] = value.y;
-            this[2, index] = value.z;
-            this[3, index] = value.w;
+            this[0, index] = value.X;
+            this[1, index] = value.Y;
+            this[2, index] = value.Z;
+            this[3, index] = value.W;
         }
 
         public Matrix4x4(
@@ -233,15 +232,15 @@ namespace Y7Engine
             matrix44.m00 = 1f;
             matrix44.m01 = 0.0f;
             matrix44.m02 = 0.0f;
-            matrix44.m03 = position.x;
+            matrix44.m03 = position.X;
             matrix44.m10 = 0.0f;
             matrix44.m11 = 1f;
             matrix44.m12 = 0.0f;
-            matrix44.m13 = position.y;
+            matrix44.m13 = position.Y;
             matrix44.m20 = 0.0f;
             matrix44.m21 = 0.0f;
             matrix44.m22 = 1f;
-            matrix44.m23 = position.z;
+            matrix44.m23 = position.Z;
             matrix44.m30 = 0.0f;
             matrix44.m31 = 0.0f;
             matrix44.m32 = 0.0f;
@@ -254,15 +253,15 @@ namespace Y7Engine
             matrix.m00 = 1f;
             matrix.m01 = 0.0f;
             matrix.m02 = 0.0f;
-            matrix.m03 = position.x;
+            matrix.m03 = position.X;
             matrix.m10 = 0.0f;
             matrix.m11 = 1f;
             matrix.m12 = 0.0f;
-            matrix.m13 = position.y;
+            matrix.m13 = position.Y;
             matrix.m20 = 0.0f;
             matrix.m21 = 0.0f;
             matrix.m22 = 1f;
-            matrix.m23 = position.z;
+            matrix.m23 = position.Z;
             matrix.m30 = 0.0f;
             matrix.m31 = 0.0f;
             matrix.m32 = 0.0f;
@@ -272,17 +271,17 @@ namespace Y7Engine
         public static Matrix4x4 CreateScale(Vector3 scales)
         {
             Matrix4x4 matrix44;
-            matrix44.m00 = scales.x;
+            matrix44.m00 = scales.X;
             matrix44.m01 = 0.0f;
             matrix44.m02 = 0.0f;
             matrix44.m03 = 0.0f;
             matrix44.m10 = 0.0f;
-            matrix44.m11 = scales.y;
+            matrix44.m11 = scales.Y;
             matrix44.m12 = 0.0f;
             matrix44.m13 = 0.0f;
             matrix44.m20 = 0.0f;
             matrix44.m21 = 0.0f;
-            matrix44.m22 = scales.z;
+            matrix44.m22 = scales.Z;
             matrix44.m23 = 0.0f;
             matrix44.m30 = 0.0f;
             matrix44.m31 = 0.0f;
@@ -308,17 +307,17 @@ namespace Y7Engine
 
         public static void CreateScale(ref Vector3 scales, out Matrix4x4 matrix)
         {
-            matrix.m00 = scales.x;
+            matrix.m00 = scales.X;
             matrix.m01 = 0.0f;
             matrix.m02 = 0.0f;
             matrix.m03 = 0.0f;
             matrix.m10 = 0.0f;
-            matrix.m11 = scales.y;
+            matrix.m11 = scales.Y;
             matrix.m12 = 0.0f;
             matrix.m13 = 0.0f;
             matrix.m20 = 0.0f;
             matrix.m21 = 0.0f;
-            matrix.m22 = scales.z;
+            matrix.m22 = scales.Z;
             matrix.m23 = 0.0f;
             matrix.m30 = 0.0f;
             matrix.m31 = 0.0f;
@@ -360,17 +359,17 @@ namespace Y7Engine
             Vector3 vector3_2 = Vector3.Normalize(Vector3.Cross(cameraUpVector, vector3_1));
             Vector3 vector1 = Vector3.Cross(vector3_1, vector3_2);
             Matrix4x4 matrix44;
-            matrix44.m00 = vector3_2.x;
-            matrix44.m10 = vector1.x;
-            matrix44.m20 = vector3_1.x;
+            matrix44.m00 = vector3_2.X;
+            matrix44.m10 = vector1.X;
+            matrix44.m20 = vector3_1.X;
             matrix44.m30 = 0.0f;
-            matrix44.m01 = vector3_2.y;
-            matrix44.m11 = vector1.y;
-            matrix44.m21 = vector3_1.y;
+            matrix44.m01 = vector3_2.Y;
+            matrix44.m11 = vector1.Y;
+            matrix44.m21 = vector3_1.Y;
             matrix44.m31 = 0.0f;
-            matrix44.m02 = vector3_2.z;
-            matrix44.m12 = vector1.z;
-            matrix44.m22 = vector3_1.z;
+            matrix44.m02 = vector3_2.Z;
+            matrix44.m12 = vector1.Z;
+            matrix44.m22 = vector3_1.Z;
             matrix44.m32 = 0.0f;
             matrix44.m03 = -Vector3.Dot(vector3_2, cameraPosition);
             matrix44.m13 = -Vector3.Dot(vector1, cameraPosition);
@@ -384,17 +383,17 @@ namespace Y7Engine
             Vector3 vector3_1 = Vector3.Normalize(cameraPosition - cameraTarget);
             Vector3 vector3_2 = Vector3.Normalize(Vector3.Cross(cameraUpVector, vector3_1));
             Vector3 vector1 = Vector3.Cross(vector3_1, vector3_2);
-            matrix.m00 = vector3_2.x;
-            matrix.m10 = vector1.x;
-            matrix.m20 = vector3_1.x;
+            matrix.m00 = vector3_2.X;
+            matrix.m10 = vector1.X;
+            matrix.m20 = vector3_1.X;
             matrix.m30 = 0.0f;
-            matrix.m01 = vector3_2.y;
-            matrix.m11 = vector1.y;
-            matrix.m21 = vector3_1.y;
+            matrix.m01 = vector3_2.Y;
+            matrix.m11 = vector1.Y;
+            matrix.m21 = vector3_1.Y;
             matrix.m31 = 0.0f;
-            matrix.m02 = vector3_2.z;
-            matrix.m12 = vector1.z;
-            matrix.m22 = vector3_1.z;
+            matrix.m02 = vector3_2.Z;
+            matrix.m12 = vector1.Z;
+            matrix.m22 = vector3_1.Z;
             matrix.m32 = 0.0f;
             matrix.m03 = -Vector3.Dot(vector3_2, cameraPosition);
             matrix.m13 = -Vector3.Dot(vector1, cameraPosition);
@@ -616,9 +615,9 @@ namespace Y7Engine
 
         public static Matrix4x4 CreateFromAxisAngle(Vector3 axis, float angle)
         {
-            float x = axis.x;
-            float y = axis.y;
-            float z = axis.z;
+            float x = axis.X;
+            float y = axis.Y;
+            float z = axis.Z;
             float num1 = (float) Math.Sin((double) angle);
             float num2 = (float) Math.Cos((double) angle);
             float num3 = x * x;
@@ -649,9 +648,9 @@ namespace Y7Engine
 
         public static void CreateFromAxisAngle(ref Vector3 axis, float angle, out Matrix4x4 result)
         {
-            float x = axis.x;
-            float y = axis.y;
-            float z = axis.z;
+            float x = axis.X;
+            float y = axis.Y;
+            float z = axis.Z;
             float num1 = (float) Math.Sin((double) angle);
             float num2 = (float) Math.Cos((double) angle);
             float num3 = x * x;
@@ -680,7 +679,7 @@ namespace Y7Engine
 
         public void Decompose(out Vector3 scale, out Quaternion rotation, out Vector3 translation)
         {
-            Matrix4x4 identity = Matrix4x4.identity;
+            Matrix4x4 identity = Matrix4x4.Identity;
             float num1 = 1f / (float) Math.Sqrt((double) this[0, 0] * (double) this[0, 0] + (double) this[1, 0] * (double) this[1, 0] +
                                                 (double) this[2, 0] * (double) this[2, 0]);
             identity[0, 0] = this[0, 0] * num1;
@@ -882,28 +881,28 @@ namespace Y7Engine
         }
         public void PostTranslate(Vector3 offset)
         {
-            this.m30 += this.m00 * offset.x + this.m10 * offset.y + this.m20 * offset.z;
-            this.m31 += this.m01 * offset.x + this.m11 * offset.y + this.m21 * offset.z;
-            this.m32 += this.m02 * offset.x + this.m12 * offset.y + this.m22 * offset.z;
-            this.m33 += this.m03 * offset.x + this.m13 * offset.y + this.m23 * offset.z;
+            this.m30 += this.m00 * offset.X + this.m10 * offset.Y + this.m20 * offset.Z;
+            this.m31 += this.m01 * offset.X + this.m11 * offset.Y + this.m21 * offset.Z;
+            this.m32 += this.m02 * offset.X + this.m12 * offset.Y + this.m22 * offset.Z;
+            this.m33 += this.m03 * offset.X + this.m13 * offset.Y + this.m23 * offset.Z;
         }
 
         public Vector3 Transform(Vector3 position)
         {
-            float num1 = (float)((double)position.x * (double)this.m00 + (double)position.y * (double)this.m01 +
-                (double)position.z * (double)this.m02) + this.m03;
-            float num2 = (float)((double)position.x * (double)this.m10 + (double)position.y * (double)this.m11 +
-                (double)position.z * (double)this.m12) + this.m13;
-            float num3 = (float)((double)position.x * (double)this.m20 + (double)position.y * (double)this.m21 +
-                (double)position.z * (double)this.m22) + this.m23;
+            float num1 = (float)((double)position.X * (double)this.m00 + (double)position.Y * (double)this.m01 +
+                (double)position.Z * (double)this.m02) + this.m03;
+            float num2 = (float)((double)position.X * (double)this.m10 + (double)position.Y * (double)this.m11 +
+                (double)position.Z * (double)this.m12) + this.m13;
+            float num3 = (float)((double)position.X * (double)this.m20 + (double)position.Y * (double)this.m21 +
+                (double)position.Z * (double)this.m22) + this.m23;
             Vector3 vector3;
-            vector3.x = num1;
-            vector3.y = num2;
-            vector3.z = num3;
+            vector3.X = num1;
+            vector3.Y = num2;
+            vector3.Z = num3;
             return vector3;
         }
 
-        public Matrix4x4 inverse
+        public Matrix4x4 Inverse
 		{
 			get
 			{
@@ -1144,64 +1143,64 @@ namespace Y7Engine
 
         public static Vector4 TransformVector4(Matrix4x4 matrix, Vector4 vector)
         {
-            float num1 = (float) ((double) vector.x * (double) matrix.m00 + (double) vector.y * (double) matrix.m01 +
-                (double) vector.z * (double) matrix.m02 + (double) vector.w * (double) matrix.m03);
-            float num2 = (float) ((double) vector.x * (double) matrix.m10 + (double) vector.y * (double) matrix.m11 +
-                (double) vector.z * (double) matrix.m12 + (double) vector.w * (double) matrix.m13);
-            float num3 = (float) ((double) vector.x * (double) matrix.m20 + (double) vector.y * (double) matrix.m21 +
-                (double) vector.z * (double) matrix.m22 + (double) vector.w * (double) matrix.m23);
-            float num4 = (float) ((double) vector.x * (double) matrix.m30 + (double) vector.y * (double) matrix.m31 +
-                (double) vector.z * (double) matrix.m32 + (double) vector.w * (double) matrix.m33);
+            float num1 = (float) ((double) vector.X * (double) matrix.m00 + (double) vector.Y * (double) matrix.m01 +
+                (double) vector.Z * (double) matrix.m02 + (double) vector.W * (double) matrix.m03);
+            float num2 = (float) ((double) vector.X * (double) matrix.m10 + (double) vector.Y * (double) matrix.m11 +
+                (double) vector.Z * (double) matrix.m12 + (double) vector.W * (double) matrix.m13);
+            float num3 = (float) ((double) vector.X * (double) matrix.m20 + (double) vector.Y * (double) matrix.m21 +
+                (double) vector.Z * (double) matrix.m22 + (double) vector.W * (double) matrix.m23);
+            float num4 = (float) ((double) vector.X * (double) matrix.m30 + (double) vector.Y * (double) matrix.m31 +
+                (double) vector.Z * (double) matrix.m32 + (double) vector.W * (double) matrix.m33);
             Vector4 vector4;
-            vector4.x = num1;
-            vector4.y = num2;
-            vector4.z = num3;
-            vector4.w = num4;
+            vector4.X = num1;
+            vector4.Y = num2;
+            vector4.Z = num3;
+            vector4.W = num4;
             return vector4;
         }
 
         public static void TransformVector4(ref Matrix4x4 matrix, ref Vector4 vector, out Vector4 result)
         {
-            float num1 = (float) ((double) vector.x * (double) matrix.m00 + (double) vector.y * (double) matrix.m01 +
-                (double) vector.z * (double) matrix.m02 + (double) vector.w * (double) matrix.m03);
-            float num2 = (float) ((double) vector.x * (double) matrix.m10 + (double) vector.y * (double) matrix.m11 +
-                (double) vector.z * (double) matrix.m12 + (double) vector.w * (double) matrix.m13);
-            float num3 = (float) ((double) vector.x * (double) matrix.m20 + (double) vector.y * (double) matrix.m21 +
-                (double) vector.z * (double) matrix.m22 + (double) vector.w * (double) matrix.m23);
-            float num4 = (float) ((double) vector.x * (double) matrix.m30 + (double) vector.y * (double) matrix.m31 +
-                (double) vector.z * (double) matrix.m32 + (double) vector.w * (double) matrix.m33);
-            result.x = num1;
-            result.y = num2;
-            result.z = num3;
-            result.w = num4;
+            float num1 = (float) ((double) vector.X * (double) matrix.m00 + (double) vector.Y * (double) matrix.m01 +
+                (double) vector.Z * (double) matrix.m02 + (double) vector.W * (double) matrix.m03);
+            float num2 = (float) ((double) vector.X * (double) matrix.m10 + (double) vector.Y * (double) matrix.m11 +
+                (double) vector.Z * (double) matrix.m12 + (double) vector.W * (double) matrix.m13);
+            float num3 = (float) ((double) vector.X * (double) matrix.m20 + (double) vector.Y * (double) matrix.m21 +
+                (double) vector.Z * (double) matrix.m22 + (double) vector.W * (double) matrix.m23);
+            float num4 = (float) ((double) vector.X * (double) matrix.m30 + (double) vector.Y * (double) matrix.m31 +
+                (double) vector.Z * (double) matrix.m32 + (double) vector.W * (double) matrix.m33);
+            result.X = num1;
+            result.Y = num2;
+            result.Z = num3;
+            result.W = num4;
         }
 
         public static Vector3 TransformPosition(Matrix4x4 matrix, Vector3 position)
         {
-            float num1 = (float) ((double) position.x * (double) matrix.m00 + (double) position.y * (double) matrix.m01 +
-                (double) position.z * (double) matrix.m02) + matrix.m03;
-            float num2 = (float) ((double) position.x * (double) matrix.m10 + (double) position.y * (double) matrix.m11 +
-                (double) position.z * (double) matrix.m12) + matrix.m13;
-            float num3 = (float) ((double) position.x * (double) matrix.m20 + (double) position.y * (double) matrix.m21 +
-                (double) position.z * (double) matrix.m22) + matrix.m23;
+            float num1 = (float) ((double) position.X * (double) matrix.m00 + (double) position.Y * (double) matrix.m01 +
+                (double) position.Z * (double) matrix.m02) + matrix.m03;
+            float num2 = (float) ((double) position.X * (double) matrix.m10 + (double) position.Y * (double) matrix.m11 +
+                (double) position.Z * (double) matrix.m12) + matrix.m13;
+            float num3 = (float) ((double) position.X * (double) matrix.m20 + (double) position.Y * (double) matrix.m21 +
+                (double) position.Z * (double) matrix.m22) + matrix.m23;
             Vector3 vector3;
-            vector3.x = num1;
-            vector3.y = num2;
-            vector3.z = num3;
+            vector3.X = num1;
+            vector3.Y = num2;
+            vector3.Z = num3;
             return vector3;
         }
 
         public static void TransformPosition(ref Matrix4x4 matrix, ref Vector3 position, out Vector3 result)
         {
-            float num1 = (float) ((double) position.x * (double) matrix.m00 + (double) position.y * (double) matrix.m01 +
-                (double) position.z * (double) matrix.m02) + matrix.m03;
-            float num2 = (float) ((double) position.x * (double) matrix.m10 + (double) position.y * (double) matrix.m11 +
-                (double) position.z * (double) matrix.m12) + matrix.m13;
-            float num3 = (float) ((double) position.x * (double) matrix.m20 + (double) position.y * (double) matrix.m21 +
-                (double) position.z * (double) matrix.m22) + matrix.m23;
-            result.x = num1;
-            result.y = num2;
-            result.z = num3;
+            float num1 = (float) ((double) position.X * (double) matrix.m00 + (double) position.Y * (double) matrix.m01 +
+                (double) position.Z * (double) matrix.m02) + matrix.m03;
+            float num2 = (float) ((double) position.X * (double) matrix.m10 + (double) position.Y * (double) matrix.m11 +
+                (double) position.Z * (double) matrix.m12) + matrix.m13;
+            float num3 = (float) ((double) position.X * (double) matrix.m20 + (double) position.Y * (double) matrix.m21 +
+                (double) position.Z * (double) matrix.m22) + matrix.m23;
+            result.X = num1;
+            result.Y = num2;
+            result.Z = num3;
         }
         
         public Vector3 MultiplyPoint3x4(Vector3 point)
@@ -1216,30 +1215,30 @@ namespace Y7Engine
 
         public static Vector3 TransformDirection(Matrix4x4 matrix, Vector3 direction)
         {
-            float num1 = (float) ((double) direction.x * (double) matrix.m00 + (double) direction.y * (double) matrix.m01 +
-                (double) direction.z * (double) matrix.m02);
-            float num2 = (float) ((double) direction.x * (double) matrix.m10 + (double) direction.y * (double) matrix.m11 +
-                (double) direction.z * (double) matrix.m12);
-            float num3 = (float) ((double) direction.x * (double) matrix.m20 + (double) direction.y * (double) matrix.m21 +
-                (double) direction.z * (double) matrix.m22);
+            float num1 = (float) ((double) direction.X * (double) matrix.m00 + (double) direction.Y * (double) matrix.m01 +
+                (double) direction.Z * (double) matrix.m02);
+            float num2 = (float) ((double) direction.X * (double) matrix.m10 + (double) direction.Y * (double) matrix.m11 +
+                (double) direction.Z * (double) matrix.m12);
+            float num3 = (float) ((double) direction.X * (double) matrix.m20 + (double) direction.Y * (double) matrix.m21 +
+                (double) direction.Z * (double) matrix.m22);
             Vector3 vector3;
-            vector3.x = num1;
-            vector3.y = num2;
-            vector3.z = num3;
+            vector3.X = num1;
+            vector3.Y = num2;
+            vector3.Z = num3;
             return vector3;
         }
 
         public static void TransformDirection(ref Matrix4x4 matrix, ref Vector3 direction, out Vector3 result)
         {
-            float num1 = (float) ((double) direction.x * (double) matrix.m00 + (double) direction.y * (double) matrix.m01 +
-                (double) direction.z * (double) matrix.m02);
-            float num2 = (float) ((double) direction.x * (double) matrix.m10 + (double) direction.y * (double) matrix.m11 +
-                (double) direction.z * (double) matrix.m12);
-            float num3 = (float) ((double) direction.x * (double) matrix.m20 + (double) direction.y * (double) matrix.m21 +
-                (double) direction.z * (double) matrix.m22);
-            result.x = num1;
-            result.y = num2;
-            result.z = num3;
+            float num1 = (float) ((double) direction.X * (double) matrix.m00 + (double) direction.Y * (double) matrix.m01 +
+                (double) direction.Z * (double) matrix.m02);
+            float num2 = (float) ((double) direction.X * (double) matrix.m10 + (double) direction.Y * (double) matrix.m11 +
+                (double) direction.Z * (double) matrix.m12);
+            float num3 = (float) ((double) direction.X * (double) matrix.m20 + (double) direction.Y * (double) matrix.m21 +
+                (double) direction.Z * (double) matrix.m22);
+            result.X = num1;
+            result.Y = num2;
+            result.Z = num3;
         }
 
         public static Matrix4x4 operator -(Matrix4x4 matrix1)

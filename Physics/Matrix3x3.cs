@@ -1,8 +1,4 @@
-﻿//**************************************************
-// Copyright©2018 何冠峰
-// Licensed under the MIT license
-//**************************************************
-
+﻿using System.Globalization;
 namespace Y7Engine
 {
     public struct Matrix3x3 : IEquatable<Matrix3x3>
@@ -152,20 +148,33 @@ namespace Y7Engine
 
         public Matrix3x3(Matrix4x4 rotMatrix)
         {
-            this.A1 = rotMatrix.A1;
-            this.A2 = rotMatrix.A2;
-            this.A3 = rotMatrix.A3;
-            this.B1 = rotMatrix.B1;
-            this.B2 = rotMatrix.B2;
-            this.B3 = rotMatrix.B3;
-            this.C1 = rotMatrix.C1;
-            this.C2 = rotMatrix.C2;
-            this.C3 = rotMatrix.C3;
+            this.A1 = rotMatrix.m00;
+            this.A2 = rotMatrix.m01;
+            this.A3 = rotMatrix.m02;
+            this.B1 = rotMatrix.m10;
+            this.B2 = rotMatrix.m11;
+            this.B3 = rotMatrix.m12;
+            this.C1 = rotMatrix.m20;
+            this.C2 = rotMatrix.m21;
+            this.C3 = rotMatrix.m22;
+        }
+
+        public Matrix3x3(Matrix3x3 m)
+        {
+            this.A1 = m.A1;
+            this.A2 = m.A2;
+            this.A3 = m.A3;
+            this.B1 = m.B1;
+            this.B2 = m.B2;
+            this.B3 = m.B3;
+            this.C1 = m.C1;
+            this.C2 = m.C2;
+            this.C3 = m.C3;        
         }
 
         public void Transpose()
         {
-            Matrix3x3 matrix3x3 = new Matrix3x3((Matrix4x4)this);
+            Matrix3x3 matrix3x3 = new Matrix3x3(this);
             this.A2 = matrix3x3.B1;
             this.A3 = matrix3x3.C1;
             this.B1 = matrix3x3.A2;
@@ -234,8 +243,33 @@ namespace Y7Engine
             matrix3x3.C3 = num1 * num3;
             return matrix3x3;
         }
+        public static Matrix3x3 LookRotationToMatrix(Vector3 forward, Vector3 up)
+        {
+            forward.Normalize();
+            up.Normalize();
 
-        public static Matrix3x3 FromEulerAnglesXYZ(Vector3D angles) => Matrix3x3.FromEulerAnglesXYZ(angles.X, angles.Y, angles.Z);
+            // Cross product of the forward and up vectors gives the right vector
+            Vector3 right = Vector3.Cross(forward, up);
+            right.Normalize();
+
+            // Cross product of the right and forward vectors gives the actual up vector
+            Vector3 actualUp = Vector3.Cross(right, forward);
+
+            Matrix3x3 result = new Matrix3x3();
+            result.A1 = right.X;
+            result.A2 = right.Y;
+            result.A3 = right.Z;
+
+            result.B1 = actualUp.X;
+            result.B2 = actualUp.Y;
+            result.B3 = actualUp.Z;
+
+            result.C1 = forward.X;
+            result.C2 = forward.Y;
+            result.C3 = forward.Z;
+            return result;
+        }
+        public static Matrix3x3 FromEulerAnglesXYZ(Vector3 angles) => Matrix3x3.FromEulerAnglesXYZ(angles.X, angles.Y, angles.Z);
 
         public static Matrix3x3 FromRotationX(float radians)
         {
@@ -264,7 +298,7 @@ namespace Y7Engine
             return identity;
         }
 
-        public static Matrix3x3 FromAngleAxis(float radians, Vector3D axis)
+        public static Matrix3x3 FromAngleAxis(float radians, Vector3 axis)
         {
             float x = axis.X;
             float y = axis.Y;
@@ -290,7 +324,7 @@ namespace Y7Engine
             return matrix3x3;
         }
 
-        public static Matrix3x3 FromScaling(Vector3D scaling)
+        public static Matrix3x3 FromScaling(Vector3 scaling)
         {
             Matrix3x3 identity = Matrix3x3.Identity;
             identity.A1 = scaling.X;
@@ -299,14 +333,14 @@ namespace Y7Engine
             return identity;
         }
 
-        public static Matrix3x3 FromToMatrix(Vector3D from, Vector3D to)
+        public static Matrix3x3 FromToMatrix(Vector3 from, Vector3 to)
         {
-            float num1 = Vector3D.Dot(from, to);
+            float num1 = Vector3.Dot(from, to);
             float num2 = (double)num1 < 0.0 ? -num1 : num1;
             Matrix3x3 identity = Matrix3x3.Identity;
             if ((double)num2 > 0.999989986419678)
             {
-                Vector3D vector3D1;
+                Vector3 vector3D1;
                 vector3D1.X = (double)from.X > 0.0 ? from.X : -from.X;
                 vector3D1.Y = (double)from.Y > 0.0 ? from.Y : -from.Y;
                 vector3D1.Z = (double)from.Z > 0.0 ? from.Z : -from.Z;
@@ -337,17 +371,17 @@ namespace Y7Engine
                     vector3D1.Y = 0.0f;
                     vector3D1.Z = 1f;
                 }
-                Vector3D vector3D2;
+                Vector3 vector3D2;
                 vector3D2.X = vector3D1.X - from.X;
                 vector3D2.Y = vector3D1.Y - from.Y;
                 vector3D2.Z = vector3D1.Z - from.Z;
-                Vector3D vector3D3;
+                Vector3 vector3D3;
                 vector3D3.X = vector3D1.X - to.X;
                 vector3D3.Y = vector3D1.Y - to.Y;
                 vector3D3.Z = vector3D1.Z - to.Z;
-                float num3 = 2f / Vector3D.Dot(vector3D2, vector3D2);
-                float num4 = 2f / Vector3D.Dot(vector3D3, vector3D3);
-                float num5 = num3 * num4 * Vector3D.Dot(vector3D2, vector3D3);
+                float num3 = 2f / Vector3.Dot(vector3D2, vector3D2);
+                float num4 = 2f / Vector3.Dot(vector3D3, vector3D3);
+                float num5 = num3 * num4 * Vector3.Dot(vector3D2, vector3D3);
                 for (int index = 1; index < 4; ++index)
                 {
                     for (int j = 1; j < 4; ++j)
@@ -357,7 +391,7 @@ namespace Y7Engine
             }
             else
             {
-                Vector3D vector3D = Vector3D.Cross(from, to);
+                Vector3 vector3D = Vector3.Cross(from, to);
                 float num3 = (float)(1.0 / (1.0 + (double)num1));
                 float num4 = num3 * vector3D.X;
                 float num5 = num3 * vector3D.Z;
@@ -386,17 +420,25 @@ namespace Y7Engine
         public static implicit operator Matrix3x3(Matrix4x4 mat)
         {
             Matrix3x3 matrix3x3;
-            matrix3x3.A1 = mat.A1;
-            matrix3x3.A2 = mat.A2;
-            matrix3x3.A3 = mat.A3;
-            matrix3x3.B1 = mat.B1;
-            matrix3x3.B2 = mat.B2;
-            matrix3x3.B3 = mat.B3;
-            matrix3x3.C1 = mat.C1;
-            matrix3x3.C2 = mat.C2;
-            matrix3x3.C3 = mat.C3;
+            matrix3x3.A1 = mat.m00;
+            matrix3x3.A2 = mat.m01;
+            matrix3x3.A3 = mat.m02;
+            matrix3x3.B1 = mat.m10;
+            matrix3x3.B2 = mat.m11;
+            matrix3x3.B3 = mat.m12;
+            matrix3x3.C1 = mat.m20;
+            matrix3x3.C2 = mat.m21;
+            matrix3x3.C3 = mat.m22;
             return matrix3x3;
         }
+        public Vector3 GetColumn(int index)
+        {
+            Vector3 vector3;
+            vector3.X = this[0, index];
+            vector3.Y = this[1, index];
+            vector3.Z = this[2, index];
+            return vector3;
+        }        
 
         public bool Equals(Matrix3x3 other) => (double)this.A1 == (double)other.A1 && (double)this.A2 == (double)other.A2 && ((double)this.A3 == (double)other.A3 && (double)this.B1 == (double)other.B1) && ((double)this.B2 == (double)other.B2 && (double)this.B3 == (double)other.B3) && ((double)this.C1 == (double)other.C1 && (double)this.C2 == (double)other.C2 && (double)this.C3 == (double)other.C3);
 
@@ -409,15 +451,15 @@ namespace Y7Engine
             CultureInfo currentCulture = CultureInfo.CurrentCulture;
             object[] objArray = new object[9]
             {
-        (object) this.A1.ToString((IFormatProvider) currentCulture),
-        (object) this.A2.ToString((IFormatProvider) currentCulture),
-        (object) this.A3.ToString((IFormatProvider) currentCulture),
-        (object) this.B1.ToString((IFormatProvider) currentCulture),
-        (object) this.B2.ToString((IFormatProvider) currentCulture),
-        (object) this.B3.ToString((IFormatProvider) currentCulture),
-        (object) this.C1.ToString((IFormatProvider) currentCulture),
-        (object) this.C2.ToString((IFormatProvider) currentCulture),
-        (object) this.C3.ToString((IFormatProvider) currentCulture)
+                (object) this.A1.ToString((IFormatProvider) currentCulture),
+                (object) this.A2.ToString((IFormatProvider) currentCulture),
+                (object) this.A3.ToString((IFormatProvider) currentCulture),
+                (object) this.B1.ToString((IFormatProvider) currentCulture),
+                (object) this.B2.ToString((IFormatProvider) currentCulture),
+                (object) this.B3.ToString((IFormatProvider) currentCulture),
+                (object) this.C1.ToString((IFormatProvider) currentCulture),
+                (object) this.C2.ToString((IFormatProvider) currentCulture),
+                (object) this.C3.ToString((IFormatProvider) currentCulture)
             };
             return string.Format((IFormatProvider)currentCulture, "{{[A1:{0} A2:{1} A3:{2}] [B1:{3} B2:{4} B3:{5}] [C1:{6} C2:{7} C3:{8}]}}", objArray);
         }
