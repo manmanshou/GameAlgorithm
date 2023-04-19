@@ -31,7 +31,7 @@ namespace Y7Engine
 		public byte G;
 		public byte R;
 		public byte A;
-		string codeStr;
+		string? codeStr;
 
 		public Color32(byte a, byte r, byte g, byte b)
 		{

@@ -73,6 +73,13 @@ namespace Y7Engine
             // 若三个轴都有重叠部分，则说明两个包围盒相交
             return true;
         }
+        public static bool Intersect_AABB_OBB(AABB aabb, OBB obb)
+        {
+            // 将 OBB 的顶点转换到 AABB 坐标系下
+            var obb2 = OBB.TransformToAABB(obb, aabb);
+            var obb1 = new OBB(Vector3.Zero, obb.Extents, obb.Rotation);
+            return Intersect_OBB_OBB(obb1, obb2);
+        }
         public static bool Intersect_OBB_OBB(OBB obb1, OBB obb2)
         {
             // 获取两个 OBB 包围盒的轴向

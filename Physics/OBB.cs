@@ -36,7 +36,21 @@ namespace Y7Engine
 
             return axes;
         }
+        public static OBB TransformToAABB(OBB obb, AABB aabb)
+        {
+            Vector3 center = aabb.Center;
+            Vector3 extents = aabb.Extents;
+            Vector3[] axes = obb.GetAxes();
 
+            // 在 AABB 坐标系下计算 OBB 的半长轴
+            var halfLengths = new float[3];
+            for (int i = 0; i < 3; i++)
+            {
+                halfLengths[i] = Mathf.Abs(Vector3.Dot(axes[i], obb.Extents));
+            }
+
+            return new OBB(center, new Vector3(halfLengths[0], halfLengths[1], halfLengths[2]), Quaternion.identity);
+        }
 
     }
 }
