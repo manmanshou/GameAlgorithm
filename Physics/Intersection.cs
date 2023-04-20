@@ -124,6 +124,51 @@ namespace Y7Engine
             // 如果没有找到分离轴，则两个 OBB 包围盒相交
             return true;
         }
+        public static bool Intersect_Ray_Sphere(Ray ray, Sphere sphere)
+        {
+            Vector3 offset = sphere.Center - ray.Origin;
+            float tca = Vector3.Dot(offset, ray.Direction);
+            float d2 = Vector3.Dot(offset, offset) - tca * tca;
+            if (d2 > sphere.Radius * sphere.Radius)
+            {
+                return false;
+            }
+            float thc = (float)Math.Sqrt(sphere.Radius * sphere.Radius - d2);
+            float t0 = tca - thc;
+            float t1 = tca + thc;
+            if (t0 < 0 && t1 < 0)
+            {
+                return false;
+            }
+            return true;
+        }
+        public static bool Intersect_Sphere_AABB(Sphere sphere, AABB aabb)
+        {
+            var aabbMin = aabb.Center - aabb.Extents;
+            var aabbMax = aabb.Center + aabb.Extents;
+            // 计算AABB中心到球心的向量
+            Vector3 closestPoint = Vector3.Clamp(sphere.Center, aabbMin, aabbMax);
+
+            // 计算球心到最近点的距离
+            float distanceSquared = Vector3.DistanceSquared(closestPoint, sphere.Center);
+
+            // 判断是否相交
+            return distanceSquared <= (sphere.Radius * sphere.Radius);
+        }
+        public static bool Intersect_Sphere_OBB(Sphere sphere, OBB obb)
+        {
+            // 把球转换为OBB的局部坐标系下
+            Vector3 localSphereCenter = Quaternion.Inverse(obb.Rotation) * (sphere.Center - obb.Center);
+
+            // 剩余就当和AABB碰撞处理
+            float x = Mathf.Clamp(localSphereCenter.X, -obb.Extents.X, obb.Extents.X);
+            float y = Mathf.Clamp(localSphereCenter.Y, -obb.Extents.Y, obb.Extents.Y);
+            float z = Mathf.Clamp(localSphereCenter.Z, -obb.Extents.Z, obb.Extents.Z);
+            Vector3 closestPoint = new Vector3(x, y, z);
+
+            float distanceSquared = (closestPoint - localSphereCenter).SqrMagnitude;
+            return distanceSquared <= sphere.Radius * sphere.Radius;
+        }
     }
 }
 

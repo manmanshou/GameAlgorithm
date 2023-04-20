@@ -132,7 +132,7 @@ namespace Y7Engine
 			}
 		}
 		
-		public float sqrMagnitude
+		public float SqrMagnitude
 		{
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			get
@@ -613,7 +613,7 @@ namespace Y7Engine
 
 		public static float Angle(Vector3 from, Vector3 to)
 		{
-			double num = Math.Sqrt((double)from.sqrMagnitude * to.sqrMagnitude);
+			double num = Math.Sqrt((double)from.SqrMagnitude * to.SqrMagnitude);
 			if (num < 1.00000000362749E-15)
 				return 0.0f;
 			//return (float)Math.Acos(MathF.Clamp(Dot(from, to) / num, -1f, 1f));
@@ -623,7 +623,7 @@ namespace Y7Engine
 		public static void Angle(in Vector3 from, in Vector3 to, out float result)
 		{
 			result = 0.0f;
-			double num = Math.Sqrt((double) from.sqrMagnitude * to.sqrMagnitude);
+			double num = Math.Sqrt((double) from.SqrMagnitude * to.SqrMagnitude);
 			if ( num < 1.00000000362749E-15)
 				return;
 			Vector3.Dot(in from, in to);
@@ -654,7 +654,7 @@ namespace Y7Engine
 
 		public static bool operator ==(Vector3 lhs, Vector3 rhs)
 		{
-			return (lhs - rhs).sqrMagnitude < 9.99999943962493E-11;
+			return (lhs - rhs).SqrMagnitude < 9.99999943962493E-11;
 		}
 
 		public static bool operator !=(Vector3 lhs, Vector3 rhs)

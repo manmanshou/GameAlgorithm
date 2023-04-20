@@ -441,7 +441,7 @@ namespace Y7Engine
             if (cosTheta < -1 + 0.001f)
             {
                 rotationAxis = Vector3.Cross(new Vector3(0.0f, 0.0f, 1.0f), start);
-                if (rotationAxis.sqrMagnitude < 0.01f)
+                if (rotationAxis.SqrMagnitude < 0.01f)
                 {
                     rotationAxis = Vector3.Cross(new Vector3(1.0f, 0.0f, 0.0f), start);
                 }
